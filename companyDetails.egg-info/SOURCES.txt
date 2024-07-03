@@ -1,0 +1,17 @@
+LICENCE.txt
+setup.py
+companyDetails/__init__.py
+companyDetails/items.py
+companyDetails/middlewares.py
+companyDetails/pipelines.py
+companyDetails/settings.py
+companyDetails.egg-info/PKG-INFO
+companyDetails.egg-info/SOURCES.txt
+companyDetails.egg-info/dependency_links.txt
+companyDetails.egg-info/top_level.txt
+companyDetails/spiders/__init__.py
+companyDetails/spiders/emailtrack.py
+dto/__init__.py
+dto/company_details_dto.py
+entity/__init__.py
+entity/company_details.py

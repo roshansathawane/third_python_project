@@ -1,0 +1,11 @@
+flask
+flask-cors
+scrapy
+pyautogui
+datetime
+playwright
+pandas
+cx_Oracle
+redis
+beautifulsoup4
+scrapy-selenium

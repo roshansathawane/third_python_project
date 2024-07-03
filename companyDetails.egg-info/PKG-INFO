@@ -1,0 +1,9 @@
+Metadata-Version: 2.1
+Name: companyDetails
+Version: 0.1
+Summary: this is data searching project
+Author: Light House
+Author-email: lhs@gmail.com
+Classifier: Programming Language :: Python :: 3Licence :: OSI Approved :: MIT Licens
+Classifier: Operating System :: OS Independent
+License-File: LICENCE.txt
