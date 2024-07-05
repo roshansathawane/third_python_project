@@ -31,13 +31,14 @@ from excelFileUpload import ExcelFile
 import os
 from bs4 import BeautifulSoup
 
-angular_build_directory = 'S:/workspace/data_search/data_search_web/dataSearchWeb/dist/data-search-web'
+angular_build_directory = 'S:/workspace/data_search/data_search_web/dataSearchWeb/dist'
 
 app = Flask(__name__, static_folder=angular_build_directory)
 CORS(app)
 
 @app.route('/')
 def serve_angular():
+    
     return send_from_directory(app.static_folder, 'index.html')
 
 @app.route('/<path:path>')
