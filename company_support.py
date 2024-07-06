@@ -1,6 +1,6 @@
 from util import Util
 # from dashboard import Dashboard
-from entity.company_details import CompanyDetails
+# from entity.company_details import CompanyDetails
 from dto.company_details_dto import CompanyDetailsDTO
 from db_query_list import DBQueryList
 

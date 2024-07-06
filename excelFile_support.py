@@ -1,6 +1,6 @@
 
 from db_query_list import DBQueryList
-from entity.company_details import CompanyDetails
+# from entity.company_details import CompanyDetails
 
 import pandas as pd
 from datetime import datetime

@@ -3,7 +3,7 @@ from db_query_list import DBQueryList
 from excelFile_support import excelFileSupport
 import random
 from datetime import datetime
-from playwright.async_api import async_playwright
+# from playwright.async_api import async_playwright
 
 
 class ExcelFile:

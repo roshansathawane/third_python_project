@@ -25,7 +25,7 @@ import redis
 import subprocess
 import re
 
-from entity.company_details import CompanyDetails
+# from entity.company_details import CompanyDetails
 from dto.company_details_dto import CompanyDetailsDTO
 from apiResponse import ApiResponse
 from excelFileUpload import ExcelFile
