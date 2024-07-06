@@ -3,8 +3,8 @@ import random
 import cx_Oracle
 import scrapy
 import re
-from scrapy_selenium import SeleniumRequest # type: ignore
-from scrapy.linkextractors.lxmlhtml import LxmlLinkExtractor # type: ignore
+from scrapy_selenium import SeleniumRequest 
+from scrapy.linkextractors.lxmlhtml import LxmlLinkExtractor 
 
 class EmailtrackSpider(scrapy.Spider):
     name = 'emailtrack'
