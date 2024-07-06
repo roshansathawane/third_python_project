@@ -8,7 +8,7 @@ class CompanySupport:
     
     def user_login(self):
         query = """
-            select user_code, password from user_mast
+            select user_code, password from user_mast1
         """
         return query
     

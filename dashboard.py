@@ -3,6 +3,7 @@ from db_query_list import DBQueryList
 from company_support import CompanySupport
 from entity.company_details import CompanyDetails
 from dto.company_details_dto import CompanyDetailsDTO
+import bcrypt
 
 
 class Dashboard():
@@ -14,6 +15,8 @@ class Dashboard():
         try:
             query = self.company_support.user_login()
             results = self.db_query_list.get_login_generic_list(query)
+            
+            print('results--------'+str(results))
             
             for result in results:
                 user_name = result[0]
@@ -29,6 +32,9 @@ class Dashboard():
         except Exception as e:
             print(f"Exception occurred in userlogin: {str(e)}")
             return 0 
+    
+    
+   
         
     
     def get_company_details_count(self, filter_dto):
