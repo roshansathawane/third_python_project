@@ -133,138 +133,6 @@ def companyName_get_db(token):
 
 
 
-# ----------------------------------------*********************---------------------------------
-
-
-# @app.route('/searchCompany', methods=['POST'])
-# def search_company():
-#     try:
-#         data = request.get_json()
-#         company_name = data.get('companyName')
-#         token = str(data.get('token'))
-#         file_name = data.get('originalFile')
-#         selectedDetails = data.get('selectedDetails', [])
-#         official_details = 'official_details' in selectedDetails
-#         zauba_details = 'zauba_details' in selectedDetails
-        
-#         print('company_name----------------' + company_name)
-#         print('tokensearchCompany ----------------'+ token)
-#         print('selectedDetails ----------------'+ str(selectedDetails))
-#         print('official_details ----------------'+ str(official_details))
-#         print('zauba_details ----------------'+ str(zauba_details))
-        
-        
-#         if not company_name:
-#             return jsonify({'error': 'Company name is required'}), 400
-        
-        
-#         # zaub_result =  asyncio.run(zaub_search_with_playwright(company_name))
-#         # print('zaub_result----7-------'+str(zaub_result))
-        
-#         # if zaub_result:
-#         #     zaub_website = zaub_result['search_results']
-#         #     zaub_email = zaub_result['contact_text'].split('Email ID:')[1].split('Website:')[0].strip()
-#         #     zaub_address = zaub_result['contact_text'].split('Address:')[1].split('\n')[0].strip()
-#         #     zaub_director_details = zaub_result['row_data']
-            
-#         zaub_website = ''
-#         zaub_email = ''
-#         zaub_address = ''
-#         zaub_director_details = ''
-#             # print('zaub_director_details----1-----'+str(zaub_director_details))
-             
-  
-#         search_results = asyncio.run(search_with_playwright(company_name))
-#         playwright_result = search_results
-#         print('search_results------------------' + str(search_results))
-       
-#         if not search_results:
-#             excel_service = ExcelFile()
-#             excelFile_result = excel_service.update_excelData_inDB1(token, company_name, zaub_website, zaub_email, zaub_address, zaub_director_details)
-#             print('excelFile_result-------------' + excelFile_result)
-#             return jsonify({"message": "success", "status": 200, "result": excelFile_result})
-#             return jsonify({'error': 'Failed to search company'}), 500
-           
-               
-#         com_urls = [url for url in search_results if url.endswith('.com/') or url.endswith('.com')]
-#         if not com_urls:
-#             in_urls = [url for url in search_results if url.endswith('.in/') or url.endswith('.in')]
-#             if not in_urls:
-#                 co_in_urls = [url for url in search_results if url.endswith('.co.in/') or url.endswith('.co.in')]
-#                 if not co_in_urls:
-#                     org_urls = [url for url in search_results if url.endswith('.org/') or url.endswith('.org')]
-#                     if not org_urls:
-#                         return jsonify({'error': 'No valid URLs found'}), 404
-#                     else:
-#                         urls_to_process = org_urls
-#                 else:
-#                     urls_to_process = co_in_urls
-#             else:
-#                 urls_to_process = in_urls
-#         else:
-#             urls_to_process = com_urls
-
-#         company_urls_str = ','.join(f'"{url}"' for url in urls_to_process)
-#         print('urls_to_process---------'+str(urls_to_process))
-#         print('company_urls_str---------'+str(company_urls_str))
-               
-#         process = subprocess.Popen(
-#             ['scrapy', 'crawl', 'emailtrack', '-a', f'company_urls=[{company_urls_str}]'],
-#             stdout=subprocess.PIPE,
-#             stderr=subprocess.PIPE
-#         )
-#         stdout, stderr = process.communicate()
-
-#         if stderr:
-#             print(f"Error running Scrapy spider: {stderr.decode('utf-8')}")
-
-#         # Process Scrapy results
-#         result = {'emails': '', 'phones': ''}
-#         scrapy_data = stdout.decode('utf-8')
-
-#         emails_match = re.search(r"final_emails------------\[(.+?)\]", scrapy_data)
-#         if emails_match:
-#             emails_data = emails_match.group(1)
-#             emails = ',\n'.join(re.findall(r"'([^']+)'", emails_data))
-#             result['emails'] = emails
-
-#         phones_match = re.search(r"final_phones------------\[(.+?)\]", scrapy_data)
-#         if phones_match:
-#             phones_data = phones_match.group(1)
-#             phones = ',\n'.join(re.findall(r"'([^']+)'", phones_data))
-#             result['phones'] = phones
-            
-            
-            
-#         excel_service = ExcelFile()
-#         excelFile_result = excel_service.update_excelData_inDB(token, company_urls_str, result['emails'], result['phones'], company_name, zaub_website, zaub_email, zaub_address, zaub_director_details )  
-#         print('excelFile_result-------------'+excelFile_result)
-         
-       
-#         response_data = {
-#             'message': 'Search completed successfully',
-#             'status': 200,
-#             'Results': urls_to_process,
-#             'ScrapyResults': stdout.decode('utf-8'),
-#             'PlaywrightResults': playwright_result,
-#             'zaub_website': zaub_website,
-#             'zaub_email': zaub_email,
-#             'zaub_address': zaub_address,
-#             'zaub_director_details': zaub_director_details 
-#         }
-
-#         print('cr_result---------', result)
-#         print('cr_result_emails---------', result['emails'])
-#         print('cr_result_phones---------', result['phones'])
-#         return jsonify(response_data)
-    
-#     except Exception as e:
-#         app.logger.error(f"Error searching company: {e}")
-#         return jsonify({'error': 'Failed to search company'}), 500
-
-
-
-
 @app.route('/searchCompany', methods=['POST'])
 def search_company():
     try:
@@ -274,13 +142,7 @@ def search_company():
         selected_details = data.get('selectedDetails', [])
         official_details = 'official_details' in selected_details
         zauba_details = 'zauba_details' in selected_details
-        
-        print('company_name----------------' + company_name)
-        print('tokensearchCompany ----------------'+ token)
-        print('selectedDetails ----------------'+ str(selected_details))
-        print('official_details ----------------'+ str(official_details))
-        print('zauba_details ----------------'+ str(zauba_details))
-        
+               
         if not company_name:
             return jsonify({'error': 'Company name is required'}), 400
         
@@ -706,7 +568,6 @@ def get_company_data_grid_details():
         print('company_details-----55------'+str(company_details))
 
         print(f"Inside getcompanyDataGridDetails count: {len(company_details)}")
-        # return jsonify({"status": "success", "company_details": [vars(obj) for obj in company_details]})
         return jsonify({"message": "success", "status": 200,  "result": [vars(obj) for obj in company_details]})
         
 
@@ -734,7 +595,6 @@ def get_company_detail_data_count(companyTokenNo):
         dashboard_service = Dashboard()
         count = dashboard_service.get_company_details_data_count(filter_dto, str(companyTokenNo))   
         print(f"Inside getcompanyDetailsDashFiltTableCount count: {count}")
-        # return jsonify({"status": 200, "message": "successfully data get form token", "count": str(count)})
         return jsonify({"message": "success", "status": 200, "result": str(count)})
 
     except Exception as e:
@@ -873,10 +733,6 @@ def save_zaubDetails():
             excel_service = ExcelFile()
             zauba_result = excel_service.save_zaubaData_inDB(company_name, TokenNo, zaub_website, zaub_email, zaub_address, zaub_director_details)
             print('zaub_details:', zauba_result)
-                    
-        # excel_service = ExcelFile()
-        # zauba_result = excel_service.save_zaubaData_inDB(websiteUrl, email, address, company_name, TokenNo )
-        # print('zaub_details---------------'+str(zauba_result))
         return jsonify({"message": "success", "status": 200})
         
     except Exception as e:
@@ -884,42 +740,8 @@ def save_zaubDetails():
     
     
 
-# @app.route('/save_zaubDetails', methods=['POST'])
-# def save_zaubDetails():
-#     try:
-#         data = request.get_json()
-#         TokenNo = data.get('companyTokenNo')
-#         company_name = data.get('company_name')
-#         zaub_result_json = data.get('zaub_result')
-#         zaub_result = json.loads(zaub_result_json)
-
-#         if zaub_result:
-#             zaub_website = zaub_result['search_results']
-#             zaub_email = zaub_result['contact_text'].split('Email ID:')[1].split('Website:')[0].strip()
-#             zaub_address = zaub_result['contact_text'].split('Address:')[1].split('\n')[0].strip()
-#             zaub_director_details = zaub_result['row_data']
-
-#             print('Row Data:')
-#             for row in zaub_director_details:
-#                 print('DIN Value:', row['din_value'])
-#                 print('Name:', row['name_value'])
-#                 print('Designation:', row['designation_value'])
-
-#             excel_service = ExcelFile()
-#             zauba_result = excel_service.save_zaubaData_inDB(company_name, TokenNo, zaub_website, zaub_email, zaub_address, zaub_director_details)
-#             print('zaub_details:', zauba_result)
-
-#             return jsonify({"message": "success", "status": 200})
-#         else:
-#             return jsonify({'error': 'No data received'}), 400
-
-#     except Exception as e:
-#         return jsonify({'error': str(e)}), 500
-
-  
     
-   
-   
+     
    
 @app.route('/delete_record/<token>', methods=['GET'])  
 def delete_record(token):    
@@ -1039,8 +861,6 @@ async def search_with_playwright(company_name):
 
 
 
-
-
 async def zaub_search_with_playwright(company_name):
     try:
         print(f'company_name----search_with_playwright------------{company_name}')
@@ -1129,143 +949,6 @@ async def zaub_search_with_playwright(company_name):
 
 
 
-# async def zaub_search_with_playwright(company_name):
-#     try:
-#         async with async_playwright() as p:
-#             # browser = await p.chromium.launch(headless=True)
-#             browser = await p.chromium.launch(headless= True)
-#             context = await browser.new_context()
-#             page = await context.new_page()
-#             # pyautogui.hotkey('win', 'down')
-            
-           
-
-#             # Construct the Google query URL
-#             query = f'{company_name} zauba'
-#             await page.goto(f'https://www.google.com/search?q={query}')
-
-#             # Wait for search results to load
-#             await page.wait_for_selector('div.tF2Cxc a')
-
-#             # Evaluate and extract the link to ZaubaCorp
-#             search_results = await page.evaluate(
-#                 """() => {
-#                     const links = Array.from(document.querySelectorAll('div.tF2Cxc a'));
-#                     for (const link of links) {
-#                         const href = link.getAttribute('href');
-#                         if (href && href.includes("zaubacorp.com")) {
-#                             return href; // Return the first Zauba link found
-#                         }
-#                     }
-#                     return null; // No Zauba link found
-#                 }"""
-#             )
-
-#             if search_results:
-#                 await page.goto(search_results)
-#                 await page.wait_for_selector('body')
-#                 await page.wait_for_timeout(5000)
-                
-#                 html_text = await page.content()
-
-               
-
-#                 # Find all email addresses using regex
-#                 email_list = re.findall(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b', html_text)
-#                 print('email_list-------------'+str(email_list))
-                
-#                 # Print all found email addresses
-#                 for email in email_list:
-#                     print(f'Email:------------------- {email}')
-
-#             await browser.close()
-
-#     except Exception as e:
-#         print(f"Error in zaub_search_with_playwright for {company_name}: {str(e)}")
-
-#     return None
-
-
-# async def zaub_search_with_playwright(company_name):
-#     try:
-#         async with async_playwright() as p:
-#             browser = await p.chromium.launch(headless=True)
-#             context = await browser.new_context()
-#             page = await context.new_page()
-
-#             # Construct the Google query URL
-#             await page.goto(f'https://www.google.com/search?q={company_name}')
-
-#             # Wait for search results to load
-#             await page.wait_for_selector('div.tF2Cxc a')
-
-#             # Evaluate and extract the link to ZaubaCorp
-#             search_results = await page.evaluate(
-#                 """() => {
-#                     const links = Array.from(document.querySelectorAll('div.tF2Cxc a'));
-#                     const officialWebsites = {};
-#                     for (const link of links) {
-#                         const href = link.getAttribute('href');
-#                         if (href && !href.startsWith('/search') &&
-#                             !href.includes("facebook.com") &&
-#                             !href.includes("indiamart.com") &&
-#                             !href.includes("justdial.com") &&
-#                             !href.includes("indiafilings.com") &&
-#                             !href.includes("amazon.in") &&
-#                             !href.includes("instagram.com") &&
-#                             !href.includes("tradeindia.com") &&
-#                             !href.includes("linkedin.com") &&
-#                             !href.includes("zaubacorp.com") &&
-#                             !href.includes("wikipedia.org") &&
-#                             !href.includes("indiainfoline.com") &&
-#                             (href.endsWith('.com') || href.endsWith('.com/') || href.endsWith('.in') || href.endsWith('.in/') || href.endsWith('.org') || href.endsWith('.org/'))) {
-#                                 const domain = new URL(href).hostname.replace('www.', '');
-#                                 if (!(domain in officialWebsites)) {
-#                                     officialWebsites[domain] = href;
-#                                 }
-#                         }
-#                     }
-#                     return Object.values(officialWebsites);
-#                 }"""
-#             )
-            
-#             print('search_results-------------', search_results)
-            
-#             # Iterate over each found URL and process
-#             for url in search_results:
-#                 await page.goto(url)
-#                 await page.wait_for_selector('body')
-#                 await page.wait_for_timeout(5000)
-                
-#                 html_text = await page.content()
-
-#                 # Find all email addresses using regex
-#                 email_list = re.findall(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b', html_text)
-#                 print('email_list-------------', email_list)
-                
-#                 # Print all found email addresses
-#                 for email in email_list:
-#                     print(f'Email: {email}')
-
-#             await browser.close()
-
-#     except Exception as e:
-#         print(f"Error in zaub_search_with_playwright for {company_name}: {str(e)}")
-
-#     return None
-
-
-# @app.route('/', defaults={'path': ''})
-# @app.route('/<path:path>')
-# def serve(path):
-#     if path == "":
-#         return send_from_directory(os.path.join(app.root_path, 'S:/workspace/data_search/data_search_web/dataSearchWeb/dist'), 'index.html')
-#     else:
-#         file_path = os.path.join(app.root_path, 'S:/workspace/data_search/data_search_web/dataSearchWeb/dist', path)
-#         if os.path.exists(file_path):
-#             return send_from_directory(os.path.join(app.root_path, 'S:/workspace/data_search/data_search_web/dataSearchWeb/dist'), path)
-#         else:
-#             return f"File not found: {path}"
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

@@ -13,27 +13,6 @@ class excelFileSupport :
         self.db_query_list = DBQueryList()
         
 
-    # def insert_company_details(self, token_number, file_name, company_name, address, last_update, serial_no):
-    #     query = """
-    #         INSERT INTO company_details (TOKEN_NO, EXCEL_NAME, COMPANY_NAME, ADDRESS, USER_CODE, LASTUPDATE, EXCEL_SR_NO)
-    #         VALUES (:TOKEN, :EXCEL_NAME, :COMPANY_NAME, :ADDRESS, :USER_CODE, :LASTUPDATE, :EXCEL_SR_NO)
-    #     """
-    #     try:
-    #         self.db_query_list.execute_query(query, {
-    #             'TOKEN': token_number,
-    #             'EXCEL_NAME': file_name,
-    #             'COMPANY_NAME': company_name,
-    #             'ADDRESS': address,
-    #             'USER_CODE': 'LHS',
-    #             'LASTUPDATE': last_update,
-    #             'EXCEL_SR_NO' : serial_no
-    #         })
-    #         print(f"Successfully inserted data into the database: {str(query)}")
-    #     except Exception as e:
-    #         print(f"Error inserting company details: {str(e)}")
-    
-    #     return query
-    
     
     
     def get_maxTokenNo(self):
@@ -64,32 +43,6 @@ class excelFileSupport :
     
     
     def insert_company_details(self, token_number, file_name, company_name, address, last_update, serial_no):
-        # try:
-            
-        #     query = """
-        #         SELECT MAX(TOKEN_NO) AS MAX_TOKEN_NO FROM company_details
-        #     """
-    
-        #     cursor = self.db_query_list.connection.cursor()
-        #     cursor.execute(query)
-        #     result = cursor.fetchone()
-        #     cursor.close()
-        
-        #     print('result----------'+str(result))
-    
-        #     if result is not None and result[0] is not None:
-        #         max_token_no = int(result[0])
-        #         token_number = max_token_no + 1
-        #     else:
-        #         token_number = 101
-                
-                
-        #     return  token_number   
-        # except Exception as e:
-        #     print(f"Error inserting company details: {str(e)}")
-        #     return None    
- 
- 
         print('token_number------02------'+str(token_number))
         
         query = """
@@ -187,27 +140,7 @@ class excelFileSupport :
             return None, None
         
         
-        
-    # def set_zaubDetails_fromDB(self, company_name, TokenNo, zaub_website, zaub_email, zaub_address, zaub_director_details):
-    #     try:
-    #         query = """
-    #             UPDATE company_details
-    #             SET ZAUB_URL = :WEBSITE_URL, ZAUB_ADDRESS = :ADDRESS, ZAUB_EMAIL = :EMAIL, ZAUB_DIRECTOR_DETAILS = :ZAUB_DIRECTOR_DETAILS
-    #             WHERE TOKEN_NO = :TOKEN AND COMPANY_NAME = :COMPANY_NAME
-    #         """
-    #         params = {
-    #             'WEBSITE_URL': zaub_website,
-    #             'EMAIL': zaub_email,
-    #             'ADDRESS': zaub_address,
-    #             'TOKEN': TokenNo,
-    #             'COMPANY_NAME': company_name,
-    #             'ZAUB_DIRECTOR_DETAILS': zaub_director_details
-    #         }
-    #         print('query set_zaubDetails_fromDB:', query)
-    #         return query, params
-    #     except Exception as e:
-    #         print(f"Error in set_zaubDetails_fromDB: {str(e)}")
-    #         return None, None
+    
     
     
     def set_excelDetails_fromDB(self, token, company_urls_str, emails, phones, company_name, zaub_website, zaub_email, zaub_address, zaub_director_details):
@@ -241,25 +174,6 @@ class excelFileSupport :
         
         
    
-        
-        
-    # def delete_excelDetails_fromDB(self, token):
-    #     try:
-    #         print('token--delete---' + str(token))               
-    #         query = """
-    #             DELETE FROM company_details WHERE token_no = :token
-    #         """
-    #         params = {
-    #             'token': token,
-    #         }
-        
-    #         print('query---delete_excelDetails_fromDB------' + query)
-    #         return query, params
-    
-    #     except Exception as e:
-    #         print(f"Error in delete_excelDetails_fromDB: {str(e)}")
-    #         return None, None
-    
     
     def delete_excelDetails_fromDB(self, token):
         try:

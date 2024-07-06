@@ -51,7 +51,7 @@ class ExcelFile:
             return (f"Exception occured in get_company_fromDB : {str(e)}")  
         
         
-    # def save_zaubaData_inDB(self, websiteUrl, email, address, company_name, TokenNo):
+
     def save_zaubaData_inDB(self, company_name, TokenNo, zaub_website, zaub_email, zaub_address, zaub_director_details):
         try:
             query = self.excel_support.set_zaubDetails_fromDB(company_name, TokenNo, zaub_website, zaub_email, zaub_address, zaub_director_details)
@@ -62,38 +62,7 @@ class ExcelFile:
             print(f"Exception occured in get_company_fromDB : {str(e)}")   
             return (f"Exception occured in get_company_fromDB : {str(e)}")  
     
-    # def save_zaubaData_inDB(self, company_name, TokenNo, zaub_website, zaub_email, zaub_address, zaub_director_details):
-    #     try:
-            
-    #         print('company_name-------'+str(company_name))
-    #         print('TokenNo-------'+str(TokenNo))
-    #         print('zaub_website-------'+str(zaub_website))
-    #         print('zaub_email-------'+str(zaub_email))
-    #         print('zaub_address-------'+str(zaub_address))
-    #         print('zaub_director_details-------'+str(zaub_director_details))
-                
-
-    #         query, params = self.excel_support.set_zaubDetails_fromDB(company_name, TokenNo, zaub_website, zaub_email, zaub_address, zaub_director_details)
-    #         result = self.db_query_list.update_query1(query, *params) 
-           
-
-    #         return result
-    #     except Exception as e:
-    #         print(f"Exception occurred in save_zaubaData_inDB: {str(e)}")
-    #         return f"Exception occurred in save_zaubaData_inDB: {str(e)}"
-        
-    
-        
-    # def update_excelData_inDB(self, token, company_urls_str, result['emails'], result['phones'], company_name):
-    #     try:
-    #         query = self.excel_support.set_excelDetails_fromDB(token, company_urls_str, result['emails'], result['phones'], company_name)
-    #         result = self.db_query_list.update_query(query)
-            
-    #         return result 
-    #     except Exception as e:
-    #         print(f"Exception occured in get_company_fromDB : {str(e)}")   
-    #         return (f"Exception occured in get_company_fromDB : {str(e)}") 
-    
+   
     
   
     def update_excelData_inDB(self, token, company_urls_str, emails, phones, company_name, zaub_website, zaub_email, zaub_address, zaub_director_details):

@@ -56,15 +56,7 @@ class CompanySupport:
 
                     FROM company_details t
                     WHERE 1=1
-        """
-
-        # if filter_dto.get("EXCEL_NAME"):
-        #     query += f" AND LOWER(t.excel_name) LIKE LOWER('%{filter_dto['EXCEL_NAME']}%')"
-
-     
-        # if filter_dto.get("token"):
-        #     query += f" AND LOWER(t.token_no) LIKE LOWER('%{filter_dto['token']}%')"
-            
+        """       
             
         if not Util.isnull(filter_dto.get("EXCEL_NAME")):
             query += f" AND LOWER(t.excel_name) LIKE LOWER('%{filter_dto['EXCEL_NAME']}%')"
