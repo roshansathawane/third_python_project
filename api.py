@@ -6,7 +6,8 @@ from flask import Flask, request, jsonify, session, send_file, make_response, se
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 from util import Util
-import pyautogui
+# import pyautogui
+from xvfbwrapper import Xvfb
 from datetime import datetime
 
 
@@ -868,7 +869,7 @@ async def zaub_search_with_playwright(company_name):
             browser = await p.chromium.launch(headless=False)
             context = await browser.new_context()
             page = await context.new_page()
-            pyautogui.hotkey('win', 'down')
+            # pyautogui.hotkey('win', 'down')
 
             query = f'{company_name} zauba'
             await page.goto(f'https://www.google.com/search?q={query}')
