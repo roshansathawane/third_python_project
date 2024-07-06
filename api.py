@@ -2,7 +2,7 @@
 
 import io
 import json
-from flask import Flask, request, jsonify, session, send_file, make_response, send_from_directory, Blueprint
+from flask import Flask, request, jsonify, session, send_file, make_response, send_from_directory
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 from util import Util
@@ -21,7 +21,7 @@ import pandas as pd
 import cx_Oracle
 import random
 from io import BytesIO
-import redis
+
 import subprocess
 import re
 
