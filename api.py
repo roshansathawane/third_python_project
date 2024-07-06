@@ -7,7 +7,7 @@ from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 from util import Util
 # import pyautogui
-from xvfbwrapper import Xvfb
+
 from datetime import datetime
 
 
