@@ -30,7 +30,7 @@ from dto.company_details_dto import CompanyDetailsDTO
 from apiResponse import ApiResponse
 from excelFileUpload import ExcelFile
 import os
-from bs4 import BeautifulSoup
+
 
 angular_build_directory = 'S:/workspace/data_search/data_search_web/dataSearchWeb/dist'
 
