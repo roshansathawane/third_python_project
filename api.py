@@ -32,25 +32,25 @@ from excelFileUpload import ExcelFile
 import os
 
 
-angular_build_directory = 'S:/workspace/data_search/data_search_web/dataSearchWeb/dist'
+# angular_build_directory = 'S:/workspace/data_search/data_search_web/dataSearchWeb/dist'
 
-app = Flask(__name__, static_folder=angular_build_directory)
-CORS(app)
-
-@app.route('/')
-def serve_angular():
-    
-    return send_from_directory(app.static_folder, 'index.html')
-
-@app.route('/<path:path>')
-def serve_static_files(path):
-    return send_from_directory(app.static_folder, path)
-
-
-
-
-# app = Flask(__name__)
+# app = Flask(__name__, static_folder=angular_build_directory)
 # CORS(app)
+
+# @app.route('/')
+# def serve_angular():
+    
+#     return send_from_directory(app.static_folder, 'index.html')
+
+# @app.route('/<path:path>')
+# def serve_static_files(path):
+#     return send_from_directory(app.static_folder, path)
+
+
+
+
+app = Flask(__name__)
+CORS(app)
 
 
 def __init__(self, status_code, message, data):
@@ -62,6 +62,12 @@ def __init__(self, status_code, message, data):
 def test():
     print('in side hello method ..........')
     return 'Hello, World! This is my first Flask app on Render.'
+
+
+@app.route('/test')
+def test1():
+    print('in side hello method ..........')
+    return 'Hello, World!  lighthouse.'
 
 
 
