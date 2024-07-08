@@ -58,7 +58,13 @@ def __init__(self, status_code, message, data):
         self.message = message
         self.data = data
  
-    
+@app.route('/')
+def test():
+    print('in side hello method ..........')
+    return 'Hello, World! This is my first Flask app on Render.'
+
+
+
         
 @app.route('/login', methods=['POST']) 
 def login():
