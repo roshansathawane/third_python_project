@@ -5,19 +5,7 @@ class DBQueryList:
     def __init__(self):
         self.connection = self.get_db_connection()
 
-    # def get_db_connection(self):
-    #     try:
-    #         connection = cx_Oracle.connect(
-    #             user="trainerp",
-    #             password="trainerp",
-    #             dsn="192.168.100.173:1521/ORA11G"
-    #         )
-    #         return connection
-    #     except Exception as e:
-    #         print(f"Error connecting to the database: {str(e)}")
-    #         return None
-    
-    
+ 
     def get_db_connection(self):
         try:
             connection = cx_Oracle.connect(
@@ -30,24 +18,7 @@ class DBQueryList:
             print(f"Error connecting to the database: {str(e)}")
             return None
         
-        
-        
-
-    # def get_row_count(self, query):
-    #     count = 0
-    #     try:
-    #         with self.connection.cursor() as cursor:
-    #             cursor.execute(query)
-    #             result = cursor.fetchone()
-    #             if result:
-    #                 count = result[0]
-    #     except Exception as e:
-    #         print(f"Exception occurred in get_row_count: {str(e)}")
-    #     finally:
-    #         if self.connection:
-    #             self.connection.close()
-    #     return 
-    
+           
     
     def get_row_count(self, query):
         if not self.connection:

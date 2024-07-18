@@ -1,6 +1,4 @@
 from util import Util
-# from dashboard import Dashboard
-# from entity.company_details import CompanyDetails
 from dto.company_details_dto import CompanyDetailsDTO
 from db_query_list import DBQueryList
 
@@ -60,8 +58,7 @@ class CompanySupport:
             
         if not Util.isnull(filter_dto.get("EXCEL_NAME")):
             query += f" AND LOWER(t.excel_name) LIKE LOWER('%{filter_dto['EXCEL_NAME']}%')"
-            
-        
+               
         if not Util.isnull(filter_dto.get("token")):
            query += f" AND LOWER(t.token_no) LIKE LOWER('%{filter_dto['token']}%')"
 
@@ -108,9 +105,7 @@ class CompanySupport:
                         t.zaub_url,
                         t.zaub_address,
                         t.zaub_email,
-                        t.flag
-                    
-                        
+                        t.flag                       
                     FROM company_details t
                     WHERE 1=1
         """
@@ -129,11 +124,8 @@ class CompanySupport:
         return query
     
     
-    
-
 
     def get_company_details_data_count_query(self, filter_dto, company_token_no):
-        print('company_token_no-------------'+company_token_no)
         query = """
             SELECT count(*)
                 FROM (SELECT ROW_NUMBER() OVER(ORDER BY t.LASTUPDATE DESC) AS slno,
@@ -176,9 +168,6 @@ class CompanySupport:
     
     
     
-    
-   
-    
     def get_company_details_count_grid(self, filter_dto, company_token_no):
         query = """
             SELECT *
@@ -204,9 +193,6 @@ class CompanySupport:
                 WHERE 1=1 AND t.Token_No='{0}'
         """.format(company_token_no)
 
-        # if filter_dto.EXCEL_NAME:
-        #     query += f" AND LOWER(t.excel_name) LIKE LOWER('%{filter_dto.EXCEL_NAME}%')"
-
         if filter_dto.COMPANY_NAME:
             query += f" AND LOWER(t.company_name) LIKE LOWER('%{filter_dto.COMPANY_NAME}%')"
 
@@ -222,10 +208,8 @@ class CompanySupport:
         if filter_dto.TO_DATE:
             query += f" AND t.lastupdate <= TO_DATE('{filter_dto.TO_DATE}', 'YYYY-MM-DD')"
             
-
         query += ") WHERE slno BETWEEN {0} AND {1}\nORDER BY slno".format(filter_dto.startIndex, filter_dto.endIndex)
        
-
         print("Data Query...04...", query)
         return query
     

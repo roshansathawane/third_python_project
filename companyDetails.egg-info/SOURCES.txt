@@ -8,6 +8,8 @@ companyDetails/settings.py
 companyDetails.egg-info/PKG-INFO
 companyDetails.egg-info/SOURCES.txt
 companyDetails.egg-info/dependency_links.txt
+companyDetails.egg-info/entry_points.txt
+companyDetails.egg-info/requires.txt
 companyDetails.egg-info/top_level.txt
 companyDetails/spiders/__init__.py
 companyDetails/spiders/emailtrack.py

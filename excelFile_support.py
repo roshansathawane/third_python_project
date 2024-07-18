@@ -1,19 +1,15 @@
 
 from db_query_list import DBQueryList
-# from entity.company_details import CompanyDetails
-
 import pandas as pd
 from datetime import datetime
-
 import json
+
 
 class excelFileSupport :
     def __init__(self):
         self.db_query_list = DBQueryList()
         
-
-    
-    
+ 
     def get_maxTokenNo(self):
         try:
             query = """
@@ -24,8 +20,6 @@ class excelFileSupport :
             cursor.execute(query)
             result = cursor.fetchone()
             cursor.close()
-        
-            print('result----------'+str(result))
     
             if result is not None and result[0] is not None:
                 max_token_no = int(result[0])
@@ -41,9 +35,7 @@ class excelFileSupport :
     
     
     
-    def insert_company_details(self, token_number, file_name, company_name, address, last_update, serial_no):
-        print('token_number------02------'+str(token_number))
-        
+    def insert_company_details(self, token_number, file_name, company_name, address, last_update, serial_no):  
         query = """
             INSERT INTO company_details (TOKEN_NO, EXCEL_NAME, COMPANY_NAME, ADDRESS, USER_CODE, LASTUPDATE, EXCEL_SR_NO, FLAG)
             VALUES (:TOKEN, :EXCEL_NAME, :COMPANY_NAME, :ADDRESS, :USER_CODE, :LASTUPDATE, :EXCEL_SR_NO, :FLAG)
@@ -60,17 +52,12 @@ class excelFileSupport :
                 'FLAG': 'N'
             })
             print(f"Successfully inserted data into the database: {str(query)}")
-            print('token_number--------------'+str(token_number))
             return token_number
         except Exception as e:
             print(f"Error inserting company details: {str(e)}")
             return None
         
-    
-    
 
-    
-# -----------------------------
             
     def get_companyName_fromDB(self, token):
         query = """
@@ -86,44 +73,29 @@ class excelFileSupport :
             cursor.execute(query, {'token': token})
             result = cursor.fetchall()
             cursor.close()
-            
-            print('result----1------' + str(result))
-            print('query-----1-----' + str(query))
-            
+                       
             if result:
                 company_details = [{'company_name': r[0], 'excel_sr_no': r[1], 'flag': r[2]} for r in result]
-                count = result[0][3]  # All rows will have the same count
+                count = result[0][3] 
             else:
                 company_details = []
                 count = 0
                 
-                
-            print('count----------' + str(count))
-            print('result----1------' + str(result))
             return company_details, count
         except Exception as e:
             print(f"Error retrieving company names: {str(e)}")
             return [], 0
         
             
-        
-    # def set_zaubDetails_fromDB(self, websiteUrl, email, address, company_name, TokenNo):
+            
     def set_zaubDetails_fromDB(self, company_name, TokenNo, zaub_website, zaub_email, zaub_address, zaub_director_details):
         try:
             zaub_director_details_json = json.dumps(zaub_director_details)
-            
             query = f"""
                 UPDATE company_details
                 SET ZAUB_URL = :WEBSITE_URL, zaub_address = :ADDRESS, ZAUB_EMAIL = :EMAIL, ZAUB_DIRECTOR_DETAILS = : ZAUB_DIRECTORS
                 WHERE TOKEN_NO = :TOKEN AND COMPANY_NAME = :COMPANY_NAME
             """
-            # params = {
-            #     'WEBSITE_URL': websiteUrl,
-            #     'EMAIL': email,
-            #     'ADDRESS': address,
-            #     'TOKEN': TokenNo,
-            #     'COMPANY_NAME': company_name
-            # }
             params = {
                 'WEBSITE_URL': zaub_website,
                 'EMAIL': zaub_email,
@@ -132,7 +104,6 @@ class excelFileSupport :
                 'COMPANY_NAME': company_name,
                 'ZAUB_DIRECTORS': zaub_director_details_json
             }
-            print('query---set_zaubDetails_fromDB------'+query)
             return query, params
         except Exception as e:
             print(f"Error in set_zaubDetails_fromDB: {str(e)}")
@@ -143,9 +114,8 @@ class excelFileSupport :
     
     
     def set_excelDetails_fromDB(self, token, company_urls_str, emails, phones, company_name, zaub_website, zaub_email, zaub_address, zaub_director_details):
+        print(' inside set_excelDetails_fromDB')
         try: 
-            print('inside----------set_excelDetails_fromDB')
-            # zaub_director_details_json = json.dumps(zaub_director_details)  
             zaub_director_details_json = json.dumps(zaub_director_details) if zaub_director_details else ''      
             query = """
                 UPDATE company_details
@@ -164,7 +134,7 @@ class excelFileSupport :
                 'ZAUB_DIRECTORS': zaub_director_details_json if zaub_director_details_json else '',
                 'FLAG': 'P'
             }
-            print('query---set_excelDetails_fromDB------' + query)
+
             return query, params
         except Exception as e:
             print(f"Error in set_excelDetails_fromDB: {str(e)}")
@@ -176,14 +146,13 @@ class excelFileSupport :
     
     def delete_excelDetails_fromDB(self, token):
         try:
-            print('token--delete---' + str(token))
             query = """
                 DELETE FROM company_details WHERE token_no = :token
             """
             params = {
                 'token': token,
             }
-            print('query---delete_excelDetails_fromDB------' + query)
+
             return query, params
         except Exception as e:
             print(f"Error in delete_excelDetails_fromDB: {str(e)}")

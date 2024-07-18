@@ -1,0 +1,2 @@
+[console_scripts]
+run_flask_app = companyDetails.api:main
