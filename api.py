@@ -6,7 +6,7 @@ import json
 from flask import Flask, request, jsonify, send_file, session, send_from_directory, render_template
 from scrapy.crawler import CrawlerProcess
 from util import Util
-import pyautogui
+# import pyautogui
 from datetime import datetime
 from companyDetails.spiders.emailtrack import EmailtrackSpider
 from dashboard import Dashboard
@@ -23,7 +23,6 @@ from dto.company_details_dto import CompanyDetailsDTO
 from apiResponse import ApiResponse
 from excelFileUpload import ExcelFile
 import os
-# from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
 import secrets
 import string
 
@@ -1184,7 +1183,7 @@ async def zaub_search_with_playwright(company_name):
             browser = await p.chromium.launch(headless=False)
             context = await browser.new_context()
             page = await context.new_page()
-            pyautogui.hotkey('win', 'down')
+            # pyautogui.hotkey('win', 'down')
 
             query = f'{company_name} zauba'
             await page.goto(f'https://www.google.com/search?q={query}')
